@@ -1,0 +1,121 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Scrape Price List API",
+      "description": "API for retrieving price list data from https://logammulia.com/id",
+      "contact": {"name": "Alfa Adriel Monico", "email": "alfaa19@gmail.com", "url": "https://github.com/alfaa19"}
+    },
+    "servers": [
+      {
+        "url": "https://localhost:8080",
+        "description": "Local Environment"
+      },
+      {
+        "url": "https://example.com",
+        "description": "Development Environment"
+      }
+    ],
+    "paths": {
+      "/api/v1/pricelist": {
+        "get": {
+          "summary": "Get Price List",
+          "description": "Retrieve price list data based on name query parameter",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Name of the item to search for in the price list"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return all pricelist data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": {
+                        "type": "boolean",
+                        "description": "Indicates if the request was successful"
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Description of the response"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the item"
+                            },
+                            "price": {
+                              "type": "number",
+                              "description": "Current price of the item"
+                            },
+                            "last_price": {
+                              "type": "number",
+                              "description": "Last recorded price of the item"
+                            },
+                            "change": {
+                              "type": "number",
+                              "description": "Change in price from last recorded price"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "example": {
+                      "success": true,
+                      "message": "success",
+                      "data": [
+                        {
+                          "name": "Emas",
+                          "price": 1133000,
+                          "last_price": 1133000,
+                          "change": 0
+                        },
+                        {
+                          "name": "Perak",
+                          "price": 12650,
+                          "last_price": 12700,
+                          "change": -50
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Return not found If the parameter name not found in pricelist",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "string",
+                        "description": "Description of the error"
+                      }
+                    },
+                    "example": {
+                      "error": "Data not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
