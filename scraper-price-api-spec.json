@@ -12,12 +12,12 @@
         "description": "Local Environment"
       },
       {
-        "url": "https://example.com",
+        "url": "http://ec2-13-250-121-56.ap-southeast-1.compute.amazonaws.com:8080",
         "description": "Development Environment"
       }
     ],
     "paths": {
-      "/api/v1/pricelist": {
+      "/pricelist": {
         "get": {
           "summary": "Get Price List",
           "description": "Retrieve price list data based on name query parameter",
